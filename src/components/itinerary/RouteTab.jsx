@@ -19,18 +19,34 @@ const RouteTab = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
         {cities.map((city, i) => (
           <div key={i} style={{
-            background: `linear-gradient(135deg, ${city.color}20 0%, ${city.color}10 100%)`,
-            border: `2px solid ${city.color}50`,
+            background: 'rgba(255,255,255,0.05)',
             borderRadius: '12px',
-            padding: '16px',
+            overflow: 'hidden',
+            border: `1px solid ${city.color}40`,
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <div style={{ fontSize: '18px', fontWeight: '600', color: city.color }}>{city.name}</div>
-              <div style={{ background: city.color, color: 'white', padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: '600' }}>{city.nights} nights</div>
+            <div style={{ position: 'relative', height: '120px' }}>
+              <img 
+                src={city.image} 
+                alt={city.name} 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
+              <div style={{ 
+                position: 'absolute', 
+                bottom: 0, left: 0, right: 0, 
+                background: 'linear-gradient(transparent, rgba(0,0,0,0.8))', 
+                padding: '12px' 
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: 'white' }}>{city.name}</div>
+                  <div style={{ background: city.color, color: 'white', padding: '2px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: '600' }}>
+                    {city.nights} nights
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+            <div style={{ padding: '12px', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
               {city.highlights.map((h, j) => (
-                <span key={j} style={{ background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', color: '#e2e8f0' }}>{h}</span>
+                <span key={j} style={{ background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', color: '#cbd5e1' }}>{h}</span>
               ))}
             </div>
           </div>
@@ -49,9 +65,6 @@ const RouteTab = () => {
               {i < cities.length - 1 && <div style={{ color: '#94a3b8', fontSize: '20px' }}>→</div>}
             </React.Fragment>
           ))}
-        </div>
-        <div style={{ marginTop: '16px', fontSize: '12px', color: '#94a3b8', textAlign: 'center' }}>
-          💡 Pro tip: Fly into Tokyo (NRT/HND), out of Osaka (KIX) to save time!
         </div>
       </div>
     </div>
