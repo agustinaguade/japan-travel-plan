@@ -1,52 +1,7 @@
 // src/components/common/CrewSelect.jsx
 import React from 'react';
-
-const BASE_FIGHTERS = [
-  {
-    id: 'unknown',
-    name: 'Unknown',
-    lockedImg: '/images/fighters/unknown_character.jpg',
-    unlockedImg: '/images/fighters/unknown_unlocked.jpg',
-    tag: 'Main DPS',
-    desc: '',
-    locked: true,
-  },
-  {
-    id: 'cara-do-sapo',
-    name: 'Cara Do Sapo',
-    img: '/images/fighters/cara_do_sapo_pic.jpg',
-    tag: 'Tank',
-    desc: 'Route planner • Budget guard • Shrine enjoyer',
-  },
-  {
-    id: 'carla',
-    name: 'Carla',
-    img: '/images/fighters/carla_pic.jpg',
-    tag: 'Support',
-    desc: 'Translator • Convenience-store strategist',
-  },
-  {
-    id: 'theo',
-    name: 'Theo',
-    img: '/images/fighters/theo_pic.jpg',
-    tag: 'Healer',
-    desc: 'Energy manager • Hydration police',
-  },
-  {
-    id: 'shulius',
-    name: 'Shulius',
-    img: '/images/fighters/shulius_pic.jpg',
-    tag: 'Assassin',
-    desc: 'Photo sniper • Fast shopper',
-  },
-  {
-    id: 'masa-de-grasa',
-    name: 'Masa De Grasa',
-    img: '/images/fighters/masa_de_grasa.jpg',
-    tag: 'Mage',
-    desc: 'Lore keeper • Temple vibes • Night walk',
-  },
-];
+import { BASE_FIGHTERS } from '../../data/fighters';
+import PaywallModal from './PaywallModal';
 
 const CrewSelect = ({ selectedId, onSelect }) => {
   const [isUnknownUnlocked, setIsUnknownUnlocked] = React.useState(false);
@@ -62,8 +17,8 @@ const CrewSelect = ({ selectedId, onSelect }) => {
         ...f,
         locked,
         img: locked ? f.lockedImg : f.unlockedImg,
-        name: locked ? 'Unknown' : 'Dieguin El Malin',
-        desc: locked ? '' : 'Legendary queue skipper • Merch sniffer • Secret boss energy',
+        name: locked ? f.nameLocked : f.nameUnlocked,
+        desc: locked ? '' : f.descUnlocked,
       };
     });
   }, [isUnknownUnlocked]);
@@ -78,20 +33,19 @@ const CrewSelect = ({ selectedId, onSelect }) => {
 
   const closePaywall = () => setPaywallOpen(false);
 
-  const payNow = () => {
+  // Called ONLY after the final success OK
+  const confirmPaywall = () => {
     setIsUnknownUnlocked(true);
     setPaywallOpen(false);
 
-    // auto-select after unlocking (optional)
-    const unlocked = {
+    onSelect?.({
       id: 'unknown',
       name: 'Dieguin El Malin',
       img: '/images/fighters/unknown_unlocked.jpg',
       tag: 'Main DPS',
       desc: 'Legendary queue skipper • Merch sniffer • Secret boss energy',
       locked: false,
-    };
-    onSelect?.(unlocked);
+    });
   };
 
   return (
@@ -171,6 +125,7 @@ const CrewSelect = ({ selectedId, onSelect }) => {
               }}
               title={f.locked ? 'Locked character' : 'Select character'}
             >
+              {/* Left portrait */}
               <div
                 style={{
                   width: '92px',
@@ -190,13 +145,13 @@ const CrewSelect = ({ selectedId, onSelect }) => {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
+                    objectPosition: '50% 25%', // ✅ favor faces
                     display: 'block',
-                    transform: 'scale(1.05)',
+                    transform: 'scale(1.04)',
                     filter: f.locked ? 'grayscale(1) blur(0.6px)' : 'none',
                     opacity: f.locked ? 0.7 : 1,
                   }}
                 />
-
                 <div
                   style={{
                     position: 'absolute',
@@ -207,6 +162,7 @@ const CrewSelect = ({ selectedId, onSelect }) => {
                 />
               </div>
 
+              {/* Right info */}
               <div
                 style={{
                   padding: '12px 14px',
@@ -299,107 +255,7 @@ const CrewSelect = ({ selectedId, onSelect }) => {
         })}
       </div>
 
-      
-      {paywallOpen && (
-        <div
-          onClick={closePaywall}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.55)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '18px',
-            zIndex: 9999,
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: '100%',
-              maxWidth: '520px',
-              borderRadius: '18px',
-              border: '1px solid rgba(255,255,255,0.12)',
-              background: 'rgba(15, 23, 42, 0.95)',
-              boxShadow: '0 30px 90px rgba(0,0,0,0.50)',
-              overflow: 'hidden',
-              textAlign: 'left',
-            }}
-          >
-            <div
-              style={{
-                padding: '14px 16px',
-                background: 'rgba(255,255,255,0.03)',
-                borderBottom: '1px solid rgba(255,255,255,0.06)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '12px',
-              }}
-            >
-              <div style={{ color: '#f8fafc', fontWeight: 900, letterSpacing: '1px' }}>
-                🔒 Paid Content
-              </div>
-              <button
-                onClick={closePaywall}
-                style={{
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  background: 'rgba(2,6,23,0.55)',
-                  color: '#e2e8f0',
-                  borderRadius: '10px',
-                  padding: '6px 10px',
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                }}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div style={{ padding: '16px' }}>
-              <div style={{ color: '#e2e8f0', fontSize: '14px', lineHeight: 1.55 }}>
-                Paid content. To use this character you must pay <b>$1,800 USD</b> or the
-                equivalent of a round-trip ticket to Japan.
-              </div>
-
-              <div style={{ height: '14px' }} />
-
-              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                <button
-                  onClick={payNow}
-                  style={{
-                    border: '1px solid rgba(96, 165, 250, 0.55)',
-                    background: 'rgba(37, 99, 235, 0.25)',
-                    color: '#e2e8f0',
-                    borderRadius: '12px',
-                    padding: '10px 12px',
-                    fontWeight: 900,
-                    cursor: 'pointer',
-                  }}
-                >
-                  Pay now
-                </button>
-
-                <button
-                  onClick={closePaywall}
-                  style={{
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    background: 'rgba(2,6,23,0.55)',
-                    color: '#e2e8f0',
-                    borderRadius: '12px',
-                    padding: '10px 12px',
-                    fontWeight: 900,
-                    cursor: 'pointer',
-                  }}
-                >
-                  I pay nothing
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <PaywallModal open={paywallOpen} onClose={closePaywall} onConfirm={confirmPaywall} />
     </div>
   );
 };
