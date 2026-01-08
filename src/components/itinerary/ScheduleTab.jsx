@@ -1,97 +1,93 @@
+// src/components/itinerary/ScheduleTab.jsx
 import React from 'react';
 import { itinerary, CITY_COLORS } from '../../data';
 
+const AutoImage = ({ src, alt }) => {
+  const fallback = "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&q=80"; // Arashiyama como fallback
+  
+  return (
+    <img
+      src={src || fallback}
+      alt={alt}
+      loading="lazy"
+      referrerPolicy="no-referrer"
+      style={{ 
+        width: '100%', 
+        height: '100%', 
+        objectFit: 'cover', 
+        color: 'transparent',
+        display: 'block'
+      }}
+      onError={(e) => {
+        e.target.onerror = null; // Prevenir loop infinito
+        e.target.src = fallback;
+      }}
+    />
+  );
+};
+
 const ScheduleTab = () => {
   return (
-    <div style={{ animation: 'fadeIn 0.5s ease-in' }}>
-      <h3 style={{ color: '#f1f5f9', margin: '0 0 20px 0', fontSize: '18px', fontWeight: '600' }}>
-        📋 Full Itinerary Details
-      </h3>
+    <div style={{ paddingBottom: '60px' }}>
+      {itinerary.map((day, i) => {
+        const color = CITY_COLORS[day.city] || '#94a3b8';
+        const isNewCity = i === 0 || day.city !== itinerary[i - 1].city;
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {itinerary.map((day, i) => {
-          const color = CITY_COLORS[day.city] || '#94a3b8';
-          return (
-            <div key={i} style={{
-              background: 'rgba(30, 41, 59, 0.5)', // Un azul muy oscuro y traslúcido
-              borderRadius: '12px',
-              overflow: 'hidden',
+        return (
+          <React.Fragment key={`${day.day}-${day.city}`}>
+            {isNewCity && (
+              <div style={{
+                margin: '50px 0 25px 0',
+                padding: '12px 0',
+                borderBottom: `3px solid ${color}`,
+                display: 'flex',
+                alignItems: 'baseline', gap: '15px',
+              }}>
+                <h2 style={{ color: '#f8fafc', margin: 0, fontSize: '28px' }}>{day.city}</h2>
+                <span style={{ color, fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '3px' }}>
+                  Base Station
+                </span>
+              </div>
+            )}
+
+            <div style={{
+              background: 'rgba(30, 41, 59, 0.45)',
+              borderRadius: '20px',
               border: '1px solid rgba(255,255,255,0.1)',
-              display: 'flex',
-              minHeight: '100px',
-              transition: 'all 0.3s ease'
+              marginBottom: '24px',
+              overflow: 'hidden',
             }}>
-              {/* Image Section - Estilo "Table Thumbnail" */}
-              <div style={{ width: '120px', flexShrink: 0, position: 'relative', borderRight: `4px solid ${color}` }}>
-                <img 
-                  src={day.image} 
-                  alt={day.title} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  onError={(e) => { e.target.src = 'https://via.placeholder.com/120x100?text=Japan'; }}
-                />
+              <div style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ background: color, color: 'white', padding: '6px 16px', borderRadius: '30px', fontSize: '13px', fontWeight: '800' }}>
+                    DAY {day.day}
+                  </div>
+                  <h3 style={{ margin: 0, color: '#f8fafc', fontSize: '18px' }}>{day.title}</h3>
+                </div>
               </div>
 
-              {/* Info Section */}
-              <div style={{ padding: '12px 16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ 
-                        background: color, 
-                        color: 'white', 
-                        padding: '2px 8px', 
-                        borderRadius: '6px', 
-                        fontSize: '12px', 
-                        fontWeight: 'bold' 
-                      }}>
-                        Day {day.day}
-                      </span>
-                      <span style={{ fontSize: '15px', fontWeight: '600', color: '#f8fafc' }}>{day.title}</span>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px', padding: '24px' }}>
+                {day.activities.map((poi, j) => (
+                  <div key={j} style={{ background: 'rgba(15, 23, 42, 0.8)', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div style={{ height: '110px', background: '#1e293b' }}>
+                      <AutoImage src={poi.imgUrl} alt={poi.name} />
                     </div>
-                    <span style={{ fontSize: '11px', color: color, fontWeight: '700', textTransform: 'uppercase' }}>
-                      {day.city}
-                    </span>
+                    <div style={{ padding: '12px', fontSize: '12px', color: '#e2e8f0', textAlign: 'center', fontWeight: '600' }}>
+                      {poi.name}
+                    </div>
                   </div>
+                ))}
+              </div>
 
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {day.activities.map((act, j) => (
-                      <span key={j} style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                        color: '#94a3b8',
-                        border: '1px solid rgba(255,255,255,0.05)'
-                      }}>
-                        {act}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Footer del card: Link a Google Maps */}
-                <div style={{ marginTop: '12px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '8px' }}>
-                  <a 
-                    href={day.mapUrl} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    style={{ 
-                      fontSize: '11px', 
-                      color: '#60a5fa', 
-                      textDecoration: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px'
-                    }}
-                  >
-                    📍 Open in Google Maps →
-                  </a>
-                </div>
+              <div style={{ padding: '16px 24px', background: 'rgba(0,0,0,0.15)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                <a href={day.mapUrl} target="_blank" rel="noreferrer" style={{ fontSize: '12px', color: '#60a5fa', textDecoration: 'none', fontWeight: '700' }}>
+                  📍 Open Day Destinations in Google Maps →
+                </a>
               </div>
             </div>
-          );
-        })}
-      </div>
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 };
