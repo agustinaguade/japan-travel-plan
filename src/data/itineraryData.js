@@ -14,23 +14,113 @@ export const CITY_COLORS = {
   'Travel': '#f59e0b' 
 };
 
+// src/data/itineraryData.js
+
+export const CITY_COLORS = {
+  'Tokyo': '#ef4444',
+  'Kyoto': '#8b5cf6',
+  'Hiroshima': '#06b6d4',
+  'Osaka': '#22c55e',
+  'Travel': '#f59e0b'
+};
+
 export const itinerary = [
-  { day: 1, city: 'Tokyo', title: 'Arrival', image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80', activities: ['Arrive Tokyo', 'Check-in Shinjuku/Asakusa', 'Explore neighborhood'] },
-  { day: 2, city: 'Tokyo', title: 'Akihabara Day', image: 'https://images.unsplash.com/photo-1566138285614-9cd042ba4d7c?auto=format&fit=crop&w=800&q=80', activities: ['Animate 7 floors', 'Radio Kaikan', 'Mandarake', 'Super Potato'] },
-  { day: 3, city: 'Tokyo', title: 'Nintendo & Gaming', image: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=800&q=80', activities: ['Nintendo Tokyo', 'Pokemon Center', 'Harajuku (JJK)', 'Shibuya'] },
-  { day: 4, city: 'Tokyo', title: 'Demon Slayer & Samurai', image: 'https://images.unsplash.com/photo-1571536802807-30451e3955d8?auto=format&fit=crop&w=800&q=80', activities: ['Senso-ji (Muzan scene)', 'TeamLab Planets', 'Samurai Museum'] },
-  { day: 5, city: 'Tokyo', title: 'Kamakura Day Trip', image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=800&q=80', activities: ['Samurai capital', 'Great Buddha', 'Zen temples', 'Return Tokyo'] },
-  { day: 6, city: 'Travel', title: 'Tokyo → Kyoto', image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80', activities: ['Shinkansen 2h15m', 'Check-in', 'Pontocho evening'] },
-  { day: 7, city: 'Kyoto', title: 'Higashiyama & Gion', image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80', activities: ['Kiyomizu-dera', 'Kimono rental', 'Gion geisha district'] },
-  { day: 8, city: 'Kyoto', title: 'Samurai X Pilgrimage', image: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=80', activities: ['Arashiyama', 'Ikedaya Inn', 'Shinsengumi sites', 'Ryozen Museum'] },
-  { day: 9, city: 'Kyoto', title: 'Fushimi + Nara', image: 'https://images.unsplash.com/photo-1524413159693-3b841b1c4bb9?auto=format&fit=crop&w=800&q=80', activities: ['Fushimi Inari early', 'Nara deer park', 'Todai-ji Buddha', 'Tea ceremony'] },
-  { day: 10, city: 'Travel', title: 'Kyoto → Himeji → Hiroshima', image: 'https://images.unsplash.com/photo-1590234910093-6c8ea171207e?auto=format&fit=crop&w=800&q=80', activities: ['Himeji Castle stop', 'Continue to Hiroshima', 'Evening explore'] },
-  { day: 11, city: 'Hiroshima', title: 'Peace Memorial', image: 'https://images.unsplash.com/photo-1552554652-3a5e8c68383e?auto=format&fit=crop&w=800&q=80', activities: ['Peace Museum', 'A-Bomb Dome', 'Memorial Park', 'Okonomiyaki'] },
-  { day: 12, city: 'Hiroshima', title: 'Miyajima Island', image: 'https://images.unsplash.com/photo-1590759668628-05b0fc34bb7a?auto=format&fit=crop&w=800&q=80', activities: ['Floating torii', 'Itsukushima Shrine', 'Mt. Misen', 'Train to Osaka'] },
-  { day: 13, city: 'Osaka', title: 'Nintendo World!', image: 'https://images.unsplash.com/photo-1627931367011-e708765f0885?auto=format&fit=crop&w=800&q=80', activities: ['USJ early arrival', 'Mario Kart', 'Yoshi Adventure', 'DK Mine Cart'] },
-  { day: 14, city: 'Osaka', title: 'USJ Day 2 or Explore', image: 'https://images.unsplash.com/photo-1590256153835-06900f86532d?auto=format&fit=crop&w=800&q=80', activities: ['Option: More USJ', 'Or: Osaka Castle', 'Den Den Town anime'] },
-  { day: 15, city: 'Osaka', title: 'Culture & Food', image: 'https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&w=800&q=80', activities: ['Nintendo Osaka', 'Kuromon Market', 'Dotonbori', 'Shinsekai'] },
-  { day: 16, city: 'Osaka', title: 'Departure', image: 'https://images.unsplash.com/photo-1555529035-260322c366e4?auto=format&fit=crop&w=800&q=80', activities: ['Final shopping', 'KIX Airport', 'Fly home'] },
+  { 
+    day: 1, city: 'Tokyo', title: 'Arrival', 
+    image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800', 
+    activities: ['Arrive Tokyo', 'Check-in Shinjuku', 'Explore neighborhood'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Shinjuku+Station+Tokyo'
+  },
+  { 
+    day: 2, city: 'Tokyo', title: 'Akihabara Day', 
+    image: 'https://images.unsplash.com/photo-1566138285614-9cd042ba4d7c?w=800', 
+    activities: ['Animate 7 floors', 'Radio Kaikan', 'Mandarake', 'Super Potato'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Akihabara+Radio+Kaikan'
+  },
+  { 
+    day: 3, city: 'Tokyo', title: 'Nintendo & Gaming', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/6136517856880344491_0', 
+    activities: ['Nintendo Tokyo', 'Pokemon Center', 'Harajuku (JJK)', 'Shibuya'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Nintendo+Tokyo+Shibuya+Parco'
+  },
+  { 
+    day: 4, city: 'Tokyo', title: 'Demon Slayer & Samurai', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/10345517549297325236_0', 
+    activities: ['Senso-ji (Muzan scene)', 'TeamLab Planets', 'Samurai Museum'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Senso-ji+Temple+Tokyo'
+  },
+  { 
+    day: 5, city: 'Tokyo', title: 'Kamakura Day Trip', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/15247874209732392057_0', 
+    activities: ['Samurai capital', 'Great Buddha', 'Zen temples', 'Return Tokyo'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kotoku-in+Kamakura'
+  },
+  { 
+    day: 6, city: 'Travel', title: 'Tokyo → Kyoto', 
+    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800', 
+    activities: ['Shinkansen 2h15m', 'Check-in', 'Pontocho evening'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kyoto+Station'
+  },
+  { 
+    day: 7, city: 'Kyoto', title: 'Higashiyama & Gion', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/1603915919605782532_0', 
+    activities: ['Kiyomizu-dera', 'Kimono rental', 'Gion geisha district'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto'
+  },
+  { 
+    day: 8, city: 'Kyoto', title: 'Samurai X Pilgrimage', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/12604824883800372533_0', 
+    activities: ['Arashiyama', 'Ikedaya Inn', 'Shinsengumi sites', 'Ryozen Museum'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove'
+  },
+  { 
+    day: 9, city: 'Kyoto', title: 'Fushimi + Nara', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/12543133903226671087_0', 
+    activities: ['Fushimi Inari early', 'Nara deer park', 'Todai-ji Buddha', 'Tea ceremony'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha'
+  },
+  { 
+    day: 10, city: 'Travel', title: 'Kyoto → Himeji → Hiroshima', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/7428359362928825909_0', 
+    activities: ['Himeji Castle stop', 'Continue to Hiroshima', 'Evening explore'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Himeji+Castle'
+  },
+  { 
+    day: 11, city: 'Hiroshima', title: 'Peace Memorial', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/861822718706000320_0', 
+    activities: ['Peace Museum', 'A-Bomb Dome', 'Memorial Park', 'Okonomiyaki'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hiroshima+Peace+Memorial+Museum'
+  },
+  { 
+    day: 12, city: 'Hiroshima', title: 'Miyajima Island', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/16887607352333073381_0', 
+    activities: ['Floating torii', 'Itsukushima Shrine', 'Mt. Misen', 'Train to Osaka'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Itsukushima+Shrine'
+  },
+  { 
+    day: 13, city: 'Osaka', title: 'Nintendo World!', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/10440025121413724174_0', 
+    activities: ['USJ early arrival', 'Mario Kart', 'Yoshi Adventure', 'DK Mine Cart'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Super+Nintendo+World+Osaka'
+  },
+  { 
+    day: 14, city: 'Osaka', title: 'USJ Day 2 or Explore', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/16717545590251161118_0', 
+    activities: ['Option: More USJ', 'Or: Osaka Castle', 'Den Den Town anime'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Osaka+Castle'
+  },
+  { 
+    day: 15, city: 'Osaka', title: 'Culture & Food', 
+    image: 'http://googleusercontent.com/image_collection/image_retrieval/18181255713498946334_0', 
+    activities: ['Nintendo Osaka', 'Kuromon Market', 'Dotonbori', 'Shinsekai'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dotonbori+Glico+Man'
+  },
+  { 
+    day: 16, city: 'Osaka', title: 'Departure', 
+    image: 'https://images.unsplash.com/photo-1628185567845-a925439e6f66?w=800', 
+    activities: ['Final shopping', 'KIX Airport', 'Fly home'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport'
+  }
 ];
 
 export const dailyCosts = {
