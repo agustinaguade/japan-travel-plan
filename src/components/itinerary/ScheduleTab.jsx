@@ -1,121 +1,93 @@
-
 import React from 'react';
 import { itinerary, CITY_COLORS } from '../../data';
 
 const ScheduleTab = () => {
   return (
-    <div style={{ paddingBottom: '20px' }}>
-      <h3 style={{ 
-        color: '#f1f5f9', 
-        margin: '0 0 20px 0', 
-        fontSize: '18px', 
-        fontWeight: '600',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px'
-      }}>
-        📋 Complete 16-Day Itinerary
+    <div style={{ animation: 'fadeIn 0.5s ease-in' }}>
+      <h3 style={{ color: '#f1f5f9', margin: '0 0 20px 0', fontSize: '18px', fontWeight: '600' }}>
+        📋 Full Itinerary Details
       </h3>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {itinerary.map((day, i) => {
-          // Si el día es de transporte, usamos el color de 'Travel', si no el de la ciudad
-          const color = CITY_COLORS[day.city] || CITY_COLORS['Travel'] || '#94a3b8';
-
+          const color = CITY_COLORS[day.city] || '#94a3b8';
           return (
             <div key={i} style={{
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '16px',
+              background: 'rgba(30, 41, 59, 0.5)', // Un azul muy oscuro y traslúcido
+              borderRadius: '12px',
               overflow: 'hidden',
-              borderLeft: `6px solid ${color}`,
+              border: '1px solid rgba(255,255,255,0.1)',
               display: 'flex',
-              alignItems: 'stretch',
-              transition: 'transform 0.2s ease, background 0.2s ease',
-              border: '1px solid rgba(255,255,255,0.05)',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+              minHeight: '100px',
+              transition: 'all 0.3s ease'
             }}>
-              
-              {/* Image Section con Overlay */}
-              <div style={{ width: '130px', flexShrink: 0, position: 'relative' }}>
+              {/* Image Section - Estilo "Table Thumbnail" */}
+              <div style={{ width: '120px', flexShrink: 0, position: 'relative', borderRight: `4px solid ${color}` }}>
                 <img 
                   src={day.image} 
                   alt={day.title} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover' 
-                  }} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/120x100?text=Japan'; }}
                 />
-                {/* Overlay degradado para integrar la foto con el contenido */}
-                <div style={{ 
-                  position: 'absolute', 
-                  inset: 0, 
-                  background: 'linear-gradient(90deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.4) 100%)' 
-                }} />
               </div>
 
-              {/* Details Section */}
-              <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                
-                {/* Header: Day Number + Title + City */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '12px' }}>
-                  <div style={{
-                    background: color,
-                    color: 'white',
-                    width: '32px', 
-                    height: '32px',
-                    borderRadius: '50%',
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    fontSize: '13px', 
-                    fontWeight: '700',
-                    boxShadow: `0 0 10px ${color}44`
-                  }}>
-                    {day.day}
-                  </div>
-                  
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ 
-                      fontSize: '15px', 
-                      fontWeight: '700', 
-                      color: '#f8fafc',
-                      lineHeight: '1.2'
-                    }}>
-                      {day.title}
+              {/* Info Section */}
+              <div style={{ padding: '12px 16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ 
+                        background: color, 
+                        color: 'white', 
+                        padding: '2px 8px', 
+                        borderRadius: '6px', 
+                        fontSize: '12px', 
+                        fontWeight: 'bold' 
+                      }}>
+                        Day {day.day}
+                      </span>
+                      <span style={{ fontSize: '15px', fontWeight: '600', color: '#f8fafc' }}>{day.title}</span>
                     </div>
-                    <div style={{ 
-                      fontSize: '11px', 
-                      color: color, 
-                      fontWeight: '600', 
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                      marginTop: '2px'
-                    }}>
+                    <span style={{ fontSize: '11px', color: color, fontWeight: '700', textTransform: 'uppercase' }}>
                       {day.city}
-                    </div>
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {day.activities.map((act, j) => (
+                      <span key={j} style={{
+                        background: 'rgba(255,255,255,0.05)',
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        fontSize: '11px',
+                        color: '#94a3b8',
+                        border: '1px solid rgba(255,255,255,0.05)'
+                      }}>
+                        {act}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                {/* Activities Tags */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {day.activities.map((act, j) => (
-                    <span key={j} style={{
-                      background: 'rgba(255,255,255,0.06)',
-                      padding: '5px 10px',
-                      borderRadius: '8px',
-                      fontSize: '11px',
-                      color: '#cbd5e1',
-                      border: '1px solid rgba(255,255,255,0.03)',
+                {/* Footer del card: Link a Google Maps */}
+                <div style={{ marginTop: '12px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '8px' }}>
+                  <a 
+                    href={day.mapUrl} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{ 
+                      fontSize: '11px', 
+                      color: '#60a5fa', 
+                      textDecoration: 'none',
                       display: 'flex',
-                      alignItems: 'center'
-                    }}>
-                      {act}
-                    </span>
-                  ))}
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    📍 Open in Google Maps →
+                  </a>
                 </div>
               </div>
-
             </div>
           );
         })}
