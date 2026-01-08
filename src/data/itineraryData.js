@@ -6,24 +6,6 @@ export const cities = [
   { name: 'Osaka', nights: 4, color: '#22c55e', highlights: ['Nintendo World', 'Osaka Castle', 'Den Den Town'] },
 ];
 
-export const CITY_COLORS = {
-  'Tokyo': '#ef4444',
-  'Kyoto': '#8b5cf6',
-  'Hiroshima': '#06b6d4',
-  'Osaka': '#22c55e',
-  'Travel': '#f59e0b' 
-};
-
-// src/data/itineraryData.js
-
-export const CITY_COLORS = {
-  'Tokyo': '#ef4444',
-  'Kyoto': '#8b5cf6',
-  'Hiroshima': '#06b6d4',
-  'Osaka': '#22c55e',
-  'Travel': '#f59e0b'
-};
-
 export const itinerary = [
   { 
     day: 1, city: 'Tokyo', title: 'Arrival', 
