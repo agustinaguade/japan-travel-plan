@@ -7,15 +7,15 @@ const BASE_FIGHTERS = [
     name: 'Unknown',
     lockedImg: '/images/fighters/unknown_character.jpg',
     unlockedImg: '/images/fighters/unknown_unlocked.jpg',
-    tag: 'Carry',
-    desc: 'Food hunter • Queue endurance • Merch radar',
+    tag: 'Main DPS',
+    desc: '',
     locked: true,
   },
   {
     id: 'cara-do-sapo',
     name: 'Cara Do Sapo',
     img: '/images/fighters/cara_do_sapo_pic.jpg',
-    tag: 'Support',
+    tag: 'Tank',
     desc: 'Route planner • Budget guard • Shrine enjoyer',
   },
   {
@@ -29,59 +29,51 @@ const BASE_FIGHTERS = [
     id: 'theo',
     name: 'Theo',
     img: '/images/fighters/theo_pic.jpg',
-    tag: 'Offlane',
+    tag: 'Healer',
     desc: 'Energy manager • Hydration police',
   },
   {
     id: 'shulius',
     name: 'Shulius',
     img: '/images/fighters/shulius_pic.jpg',
-    tag: 'Support',
+    tag: 'Assassin',
     desc: 'Photo sniper • Fast shopper',
   },
   {
     id: 'masa-de-grasa',
     name: 'Masa De Grasa',
     img: '/images/fighters/masa_de_grasa.jpg',
-    tag: 'Tank',
+    tag: 'Mage',
     desc: 'Lore keeper • Temple vibes • Night walk',
   },
 ];
 
-const CrewSelect = () => {
+const CrewSelect = ({ selectedId, onSelect }) => {
   const [isUnknownUnlocked, setIsUnknownUnlocked] = React.useState(false);
   const [paywallOpen, setPaywallOpen] = React.useState(false);
-  const [selectedId, setSelectedId] = React.useState(null);
 
   const fighters = React.useMemo(() => {
     return BASE_FIGHTERS.map((f) => {
       if (f.id !== 'unknown') return f;
-  
+
       const locked = f.locked && !isUnknownUnlocked;
-  
+
       return {
         ...f,
         locked,
-  
-        // 👇 switch image based on lock
         img: locked ? f.lockedImg : f.unlockedImg,
-  
-        // 👇 switch name when unlocked
         name: locked ? 'Unknown' : 'Dieguin El Malin',
-  
-        // 👇 description only when unlocked (your UI already hides it via opacity)
         desc: locked ? '' : 'Legendary queue skipper • Merch sniffer • Secret boss energy',
       };
     });
   }, [isUnknownUnlocked]);
-  
 
   const onCardClick = (fighter) => {
     if (fighter.id === 'unknown' && fighter.locked) {
       setPaywallOpen(true);
       return;
     }
-    setSelectedId(fighter.id);
+    onSelect?.(fighter);
   };
 
   const closePaywall = () => setPaywallOpen(false);
@@ -89,7 +81,17 @@ const CrewSelect = () => {
   const payNow = () => {
     setIsUnknownUnlocked(true);
     setPaywallOpen(false);
-    setSelectedId('unknown');
+
+    // auto-select after unlocking (optional)
+    const unlocked = {
+      id: 'unknown',
+      name: 'Dieguin El Malin',
+      img: '/images/fighters/unknown_unlocked.jpg',
+      tag: 'Main DPS',
+      desc: 'Legendary queue skipper • Merch sniffer • Secret boss energy',
+      locked: false,
+    };
+    onSelect?.(unlocked);
   };
 
   return (
@@ -169,7 +171,6 @@ const CrewSelect = () => {
               }}
               title={f.locked ? 'Locked character' : 'Select character'}
             >
-              {/* Left portrait */}
               <div
                 style={{
                   width: '92px',
@@ -196,7 +197,6 @@ const CrewSelect = () => {
                   }}
                 />
 
-                {/* little shade for contrast */}
                 <div
                   style={{
                     position: 'absolute',
@@ -207,7 +207,6 @@ const CrewSelect = () => {
                 />
               </div>
 
-              {/* Right info */}
               <div
                 style={{
                   padding: '12px 14px',
@@ -300,7 +299,7 @@ const CrewSelect = () => {
         })}
       </div>
 
-      {/* Paywall Modal */}
+      
       {paywallOpen && (
         <div
           onClick={closePaywall}

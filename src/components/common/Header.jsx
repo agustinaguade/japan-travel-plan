@@ -1,13 +1,17 @@
+// src/components/common/Header.jsx
 import React from 'react';
 import HeaderTitle from './HeaderTitle';
 import HeroBanner from './HeroBanner';
-import CrewSelect from './CrewSelect';
 
-const Header = () => (
-  <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+const Header = ({ showBanner = true }) => (
+  <div
+    style={{
+      textAlign: 'center',
+      marginBottom: showBanner ? '24px' : '14px',
+    }}
+  >
     <HeaderTitle />
-    <HeroBanner />
-    <CrewSelect />
+    {showBanner && <HeroBanner />}
   </div>
 );
 
